@@ -11,7 +11,7 @@
     <title>Register</title>
 </head>
 <body>
-<form method="post" action="${pageContext.request.contextPath}/week3/register">
+<form method="post" action="${pageContext.request.contextPath}/register">
     <div style="text-align: center">
         Register <br/>
         Username: <input type="text" name="username"/><br/>
@@ -22,5 +22,6 @@
         <input type="submit" value="Register"/>
     </div>
 </form>
+<a href="ConfigDemoServlet">week4.ConfigDemoServlet</a>
 </body>
 </html>
