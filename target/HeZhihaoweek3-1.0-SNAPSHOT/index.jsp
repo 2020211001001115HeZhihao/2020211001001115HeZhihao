@@ -1,10 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
-<head>
-    <title>JSP - Hello World</title>
-</head>
-<body>
+<%@include file="header.jsp"%>
 <h1><%= "Hello World!!!!!1234" %>
 </h1>
 Name:He Zhihao
@@ -15,5 +11,4 @@ Date and Time sun Mar 5 13:38:50 CST 2022
 <br/>
 
 <a href="hello-servlet">Hello Servlet</a>
-</body>
-</html>
+<%@include file="footer.jsp"%>
