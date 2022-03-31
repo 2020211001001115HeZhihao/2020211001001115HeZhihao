@@ -47,6 +47,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>search_week6</servlet-name>
+        <servlet-class>com.HeZhihao.week6.SearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>search_week6</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>registers</servlet-name>
         <servlet-class>com.example.hezhihaoweek3.register</servlet-class>
     </servlet>

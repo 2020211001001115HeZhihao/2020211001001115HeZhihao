@@ -35,27 +35,43 @@ public class login extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         try {
-            Statement stmt = con.createStatement();
-            ResultSet selected = stmt.executeQuery("select username,password from HeZhihaotable");
-            boolean ave = false;
-            PrintWriter writer = resp.getWriter();
-            while(selected.next()){
+            String sql = "select * from HeZhihaotable where username = '"+username+
+                    "' and password = '"+password+"'";
+            ResultSet stm = con.createStatement().executeQuery(sql);
+            if(stm.next()){
+                req.setAttribute("username",stm.getString("username"));
+                req.setAttribute("password",stm.getString("password"));
+                req.setAttribute("email",stm.getString("email"));
+                req.setAttribute("gender",stm.getString("gender"));
+                req.setAttribute("Birthdate",stm.getString("Birthdate"));
+                req.getRequestDispatcher("userinfo.jsp").forward(req,resp);
+            }
+            else {
+                req.setAttribute("message","Username or Password Error");
+                req.getRequestDispatcher("login.jsp").forward(req,resp);
+            }
 
-                String use = selected.getString("username");
-                String pas = selected.getString("password");
-                System.out.println(username+"  hhhhlou11111  "+use);
-                System.out.println(password+"  hhhhlou22222  "+pas);
-                if(Objects.equals(username, use) && Objects.equals(pas, password)){
-                    writer.println("Congratulations! </br>");
-                    writer.println("Welcome! " + username +"</br>");
-                    ave = true;
-                    writer.println("<a href=\"ConfigDemoServlet\">check</a>");
-                    break;
-                }
-            }
-            if(!ave){
-                writer.println("Sorry!!!Login fail!!");
-            }
+//            Statement stmt = con.createStatement();
+//            ResultSet selected = stmt.executeQuery("select username,password from HeZhihaotable");
+//            boolean ave = false;
+//            PrintWriter writer = resp.getWriter();
+//            while(selected.next()){
+//
+//                String use = selected.getString("username");
+//                String pas = selected.getString("password");
+//                System.out.println(username+"  hhhhlou11111  "+use);
+//                System.out.println(password+"  hhhhlou22222  "+pas);
+//                if(Objects.equals(username, use) && Objects.equals(pas, password)){
+//                    writer.println("Congratulations! </br>");
+//                    writer.println("Welcome! " + username +"</br>");
+//                    ave = true;
+//                    writer.println("<a href=\"ConfigDemoServlet\">check</a>");
+//                    break;
+//                }
+//            }
+//            if(!ave){
+//                writer.println("Sorry!!!Login fail!!");
+//            }
 
         } catch (SQLException e) {
             e.printStackTrace();
