@@ -1,5 +1,8 @@
 package com.example.hezhihaoweek3;
 
+import com.HeZhihao.dao.UserDao;
+import com.HeZhihao.week7.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +16,8 @@ public class register extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        String driver = getServletContext().getInitParameter("driver");
-        String url = getServletContext().getInitParameter("url");
-        String usr = getServletContext().getInitParameter("usr");
-        String pas = getServletContext().getInitParameter("pas");
         try{
-            Class.forName(driver);
-            con = DriverManager.getConnection(url,usr,pas);
+            con = (Connection) getServletContext().getAttribute("con");
             System.out.println("666666");
         }
         catch (Exception e){
@@ -32,21 +30,20 @@ public class register extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html");
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String email = req.getParameter("email");
-        String gender = req.getParameter("gender");
-        String Birthdate = req.getParameter("Birthdate");
-        PreparedStatement ps = null;
-
+        User user = null;
         try{
-            String in = "insert into HeZhihaotable values ('"+username+"','"+password+"','"+email+"','"+
-                    gender+"','"+Birthdate+"')";
-            System.out.println(in);
-            ps = con.prepareStatement(in);
-            System.out.println("6*6 = 666666");
-            ps.executeUpdate();
-            resp.sendRedirect("login.jsp");
+            user = new User();
+            user.setUsername(req.getParameter("username"));
+            user.setPassword(req.getParameter("password"));
+            user.setPassword(req.getParameter("email"));
+            user.setPassword(req.getParameter("gender"));
+            user.setPassword(req.getParameter("Birthdate"));
+            UserDao userDao = new UserDao();
+            if(userDao.saveUser(con,user)){
+                System.out.println("good");
+            }
+            else System.out.println("fail");
+            req.getRequestDispatcher("WEB-INF/views/login.jsp").forward(req,resp);
         }
         catch (SQLException e)
         {
