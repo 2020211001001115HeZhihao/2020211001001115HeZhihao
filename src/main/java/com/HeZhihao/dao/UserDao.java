@@ -35,7 +35,21 @@ public class UserDao implements IUserDao{
 
     @Override
     public int updateUser(Connection con, User user) throws SQLException {
-
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String email = user.getEmail();
+        String gender = user.getGender();
+        String Birthdate = user.getBirthdate();
+        String sql = "update HeZhihaotable set password = '"+password+"',email = '"+email
+                +"',gender = '"+gender+"',Birthdate = '"+Birthdate+"' where username = '"+username+"'";
+        try {
+            PreparedStatement ps = null;
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+            System.out.println("TWILIGHT");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
         return 0;
     }
 

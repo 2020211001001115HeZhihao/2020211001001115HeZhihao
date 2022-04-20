@@ -6,9 +6,7 @@ import com.HeZhihao.week7.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -47,7 +45,22 @@ public class login extends HttpServlet {
         try {
             User user = userDao.findByUsernamePassword(con,username,password);
             if(user != null){
-                req.setAttribute("user",user);
+                String rememberMe=req.getParameter("rememberMe");
+                if(rememberMe!=null&&rememberMe.equals("1")){
+                    Cookie usernameCookie = new Cookie("cUsername",user.getUsername());
+                    Cookie passwordCookie = new Cookie("cPassword",user.getPassword());
+                    Cookie rememberMeCookie = new Cookie("cRememberMe",rememberMe);
+                    usernameCookie.setMaxAge(5);
+                    passwordCookie.setMaxAge(5);
+                    rememberMeCookie.setMaxAge(5);
+                    resp.addCookie(usernameCookie);
+                    resp.addCookie(passwordCookie);
+                    resp.addCookie(rememberMeCookie);
+                }
+                HttpSession session = req.getSession();
+                System.out.println("session id -->" + session.getId());
+                session.setMaxInactiveInterval(10);
+                session.setAttribute("user",user);
                 System.out.println(user.getUsername());
                 req.getRequestDispatcher("WEB-INF/views/userinfo.jsp").forward(req,resp);
 

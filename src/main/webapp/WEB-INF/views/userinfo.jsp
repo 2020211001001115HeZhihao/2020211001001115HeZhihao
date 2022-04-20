@@ -9,15 +9,21 @@
 <%@include file="header.jsp"%>
 <center><h1>User Info</h1></center>
 <%
-    User user = (User) request.getAttribute("user");
+    User u = null;
+    if(request.getAttribute("update") != null) {
+        u = (User) request.getAttribute("user");
+    } else {
+        u = (User) session.getAttribute("user");
+    }
 %>
 <%--<div style="text-align: center">--%>
     <table border="1" align="center">
-        <tr><td>Username:</td><td><%=user.getUsername()%></td></tr>
-        <tr><td>Password:</td><td><%=user.getPassword()%></td></tr>
-        <tr><td>Email:</td><td><%=user.getEmail()%></td></tr>
-        <tr><td>Gender:</td><td><%=user.getGender()%></td></tr>
-        <tr><td>Birthdate:</td><td><%=user.getBirthdate()%></td></tr>
+        <tr><td>Username:</td><td><%=u.getUsername()%></td></tr>
+        <tr><td>Password:</td><td><%=u.getPassword()%></td></tr>
+        <tr><td>Email:</td><td><%=u.getEmail()%></td></tr>
+        <tr><td>Gender:</td><td><%=u.getGender()%></td></tr>
+        <tr><td>Birthdate:</td><td><%=u.getBirthdate()%></td></tr>
+        <tr><a href="updateUser">Update</a></tr>
     </table>
 <%--</div>--%>
 <%@include file="footer.jsp"%>
