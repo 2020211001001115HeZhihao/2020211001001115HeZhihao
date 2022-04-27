@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.HeZhihao.week7.User" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2022/4/20

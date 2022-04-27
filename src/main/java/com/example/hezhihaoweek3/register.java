@@ -27,7 +27,7 @@ public class register extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html");
         User user = null;
@@ -38,6 +38,7 @@ public class register extends HttpServlet {
             user.setPassword(req.getParameter("email"));
             user.setPassword(req.getParameter("gender"));
             user.setPassword(req.getParameter("Birthdate"));
+            System.out.println(user.getUsername()+" "+user.getEmail());
             UserDao userDao = new UserDao();
             if(userDao.saveUser(con,user)){
                 System.out.println("good");
@@ -92,7 +93,7 @@ public class register extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("WEB-INF/views/register.jsp").forward(req,resp);
     }
 }
