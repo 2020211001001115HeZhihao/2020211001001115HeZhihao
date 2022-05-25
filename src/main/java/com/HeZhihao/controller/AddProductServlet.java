@@ -12,11 +12,16 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @WebServlet(name = "AddProductServlet", value = "/admin/addProduct")
 public class AddProductServlet extends HttpServlet {
-
-    Connection con = null;
+    private Connection con = null;
+    private static final Logger Log = Logger.getLogger(String.valueOf(AddProductServlet.class));
+    public  void destroy(){
+        super.destroy();
+    }
+//    Connection con = null;
 
     @Override
     public void init()  {
@@ -54,6 +59,7 @@ public class AddProductServlet extends HttpServlet {
         int i = 0;
         try{
             i = dao.save(product,con);
+            System.out.println("save yes");
 
         } catch (SQLException e) {
             e.printStackTrace();

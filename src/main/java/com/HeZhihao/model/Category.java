@@ -100,5 +100,9 @@ public class Category implements  java.io.Serializable{
         }
         return categoryName;
     }
+
+    public List<Category> fillAllCategory(Connection con) {
+        return null;
+    }
 }
 
