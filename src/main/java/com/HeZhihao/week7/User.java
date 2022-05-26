@@ -1,10 +1,26 @@
 package com.HeZhihao.week7;
 
+import java.util.Date;
+
 public class User {
     private String username;
     private String password;
     private String email;
     private String gender;
+    private Date birthdate;
+    private int id;
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
